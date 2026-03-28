@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jihyun Kim — Biostatistician</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --ink: #1A1814;
+    --accent: #2D5A3D;
+    --accent2: #8B4513;
+    --muted: #6B6560;
+    --rule: #D4CFC7;
+    --card: #EFECE5;
+    --highlight: #E8F0EB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(247,245,240,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    padding: 6rem 4rem 4rem 6rem;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .hero-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border: 1.5px solid var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: var(--ink); color: var(--bg); }
+  .btn-filled { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn-filled:hover { background: var(--ink); border-color: var(--ink); }
+
+  .hero-right {
+    padding: 6rem 5rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 1.5rem;
+  }
+  .stat-row {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: baseline; gap: 1.5rem;
+  }
+  .stat-row:first-child { padding-top: 0; }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 3.5rem;
+  }
+  .stat-label {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .stat-label strong { display: block; color: var(--ink); font-weight: 500; font-size: 0.95rem; }
+
+  /* SECTION COMMON */
+  section { padding: 6rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 4rem; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.85;
+  }
+  .about-text p strong { color: var(--ink); font-weight: 500; }
+
+  .skills-list { display: flex; flex-direction: column; gap: 1rem; }
+  .skill-item { }
+  .skill-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.4rem;
+  }
+  .skill-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .skill-level {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .skill-bar {
+    height: 3px;
+    background: var(--rule);
+    position: relative;
+  }
+  .skill-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1.2s ease;
+    width: 0;
+  }
+
+  /* EXPERIENCE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-left {}
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-org {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .timeline-right {}
+  .timeline-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+  .timeline-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .timeline-bullets li {
+    font-size: 0.92rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.65;
+  }
+  .timeline-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--rule);
+  }
+  .project-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background 0.2s;
+  }
+  .project-card:hover { background: var(--highlight); }
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .project-tech {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .tech-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--card);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* PRESENTATIONS */
+  .pres-list { display: flex; flex-direction: column; }
+  .pres-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .pres-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    padding-top: 0.2rem;
+  }
+  .pres-content {}
+  .pres-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+  .pres-venue {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .pres-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    white-space: nowrap;
+    height: fit-content;
+  }
+  .pres-type.award { border-color: var(--accent); color: var(--accent); }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--rule); }
+  .edu-card {
+    background: var(--bg);
+    padding: 2.5rem;
+  }
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .edu-school { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .edu-gpa {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 6rem 0;
+  }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .contact-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading em { font-style: italic; color: #8BC4A0; }
+  .contact-sub { font-size: 0.95rem; color: #9A958F; line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none;
+    color: var(--bg);
+    padding: 1.2rem 1.5rem;
+    border: 1px solid #333;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: #8BC4A0; background: rgba(139,196,160,0.08); }
+  .contact-link-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #8BC4A0;
+    min-width: 60px;
+    text-transform: uppercase;
+  }
+  .contact-link-text { font-size: 0.9rem; color: #C8C3BB; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--rule); }
+    .hero-right { padding: 3rem 2rem 4rem; }
+    .container { padding: 0 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 1rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .pres-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">J. Kim</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#presentations">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Biostatistician &amp; Data Scientist</p>
+    <h1 class="hero-name">Jihyun<br>Kim</h1>
+    <p class="hero-title">Postdoctoral Researcher · University of Minnesota</p>
+    <p class="hero-desc">
+      Developing Bayesian methods at the intersection of <strong style="color:var(--ink);">survival analysis</strong>, <strong style="color:var(--ink);">high-dimensional omics</strong>, and <strong style="color:var(--ink);">scalable nonparametric inference</strong> — with applications in infectious disease and public health.
+    </p>
+    <div class="hero-links">
+      <a href="#contact" class="btn btn-filled">Get in Touch</a>
+      <a href="#projects" class="btn">View Projects</a>
+      <a href="CV_Jihyun.pdf" class="btn" target="_blank">Download CV</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-row">
+      <span class="stat-num">3.97</span>
+      <span class="stat-label">
+        <strong>PhD GPA</strong>
+        University of South Carolina · Statistics
+      </span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">3</span>
+      <span class="stat-label">
+        <strong>Conference Presentations</strong>
+        ENAR, ICSA, SC-ASA · 2022–2024
+      </span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">80+</span>
+      <span class="stat-label">
+        <strong>Researchers Supported</strong>
+        Statistical consulting &amp; data analysis
+      </span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">5</span>
+      <span class="stat-label">
+        <strong>Core Languages / Tools</strong>
+        R · Python · SQL · Tableau · SAS
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding-bottom: 3rem;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>
+          I am a postdoctoral researcher at the <strong>University of Minnesota</strong> working on 
+          <strong>Bayesian nonparametric</strong> methods for <strong>current-status survival data</strong>. 
+          My current research develops Dirichlet process mixture models that jointly model censored event times 
+          with <strong>high-dimensional omics covariates</strong> via latent factor structure, 
+          enabling flexible nonparametric clustering with full uncertainty quantification.
+        </p>
+        <p>
+          My methodological interests also span <strong>semiparametric survival models</strong> and 
+          <strong>group testing</strong> — including Bayesian estimation for group-tested current-status data 
+          with imperfect diagnostic tests — alongside MCMC algorithms and variable selection in high dimensions. 
+          Applications include infectious disease epidemiology and population-scale public health screening.
+        </p>
+        <p>
+          I hold a PhD in Statistics from the University of South Carolina (GPA 3.97) and an MS from 
+          Ewha Womans University, where I also double-majored in Psychology.
+        </p>
+      </div>
+      <div class="fade-in">
+        <div class="skills-list">
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">R</span>
+              <span class="skill-level">Expert</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="96"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">Python</span>
+              <span class="skill-level">Advanced</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">SQL</span>
+              <span class="skill-level">Proficient</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">Tableau</span>
+              <span class="skill-level">Proficient</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">SAS / SPSS</span>
+              <span class="skill-level">Proficient</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">NoSQL / MongoDB</span>
+              <span class="skill-level">Intermediate</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="55"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFTWARE -->
+<section style="background: var(--bg); padding-top: 3rem;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">03b</span>
+      <h2 class="section-title">Software <span style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; vertical-align:middle; margin-left:1rem;">IN DEVELOPMENT</span></h2>
+    </div>
+    <div class="projects-grid" style="grid-template-columns: 1fr 1fr;">
+
+      <div class="project-card fade-in" style="padding:2.8rem; opacity:0.75; border: 1.5px dashed var(--rule);">
+        <p class="project-tag">R Package · Coming Soon</p>
+        <h3 class="project-title">DPM Slice Sampler</h3>
+        <p class="project-desc" style="margin-top:0.8rem;">
+          Bayesian semiparametric current-status model with Dirichlet process mixture prior. 
+          Implements three Gibbs sampling strategies — truncated DP, dependent slice sampler, and independent slice sampler — 
+          for flexible nonparametric clustering of survival and omics data.
+        </p>
+        <div class="project-tech" style="margin-top:1.2rem;">
+          <span class="tech-tag">R</span>
+          <span class="tech-tag">DPM</span>
+          <span class="tech-tag">Slice Sampling</span>
+          <span class="tech-tag">Survival</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in" style="padding:2.8rem; opacity:0.75; border: 1.5px dashed var(--rule);">
+        <p class="project-tag">R Package · Coming Soon</p>
+        <h3 class="project-title">gtcsd</h3>
+        <p class="project-desc" style="margin-top:0.8rem;">
+          Bayesian estimation for group-tested current status data under a semiparametric Probit model. 
+          Supports Dorfman, array, and master pool testing designs; handles imperfect tests with unknown sensitivity/specificity; 
+          integrates individual and pooled specimens in a unified Gibbs sampler.
+        </p>
+        <p class="project-desc" style="margin-top:0.6rem;">
+          Applied to chlamydia screening data from the State Hygienic Laboratory at the University of Iowa.
+        </p>
+        <div class="project-tech" style="margin-top:1.2rem;">
+          <span class="tech-tag">R</span>
+          <span class="tech-tag">Group Testing</span>
+          <span class="tech-tag">Semiparametric</span>
+          <span class="tech-tag">Probit</span>
+          <span class="tech-tag">Gibbs</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background: var(--card);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-left">
+          <p class="timeline-date">2024 — Present</p>
+          <p class="timeline-org">University of Minnesota<br>Minneapolis, MN</p>
+        </div>
+        <div class="timeline-right">
+          <h3 class="timeline-role">Postdoctoral Researcher · Biostatistics</h3>
+          <ul class="timeline-bullets">
+            <li>Developing novel statistical methods in survival analysis and censored data for biomedical applications</li>
+            <li>Collaborating with interdisciplinary research teams in public health and clinical science</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-left">
+          <p class="timeline-date">2024 — Present</p>
+          <p class="timeline-org">University of South Carolina<br>Columbia, SC</p>
+        </div>
+        <div class="timeline-right">
+          <h3 class="timeline-role">Data Analysis Assistant</h3>
+          <ul class="timeline-bullets">
+            <li>Conducted comprehensive data analysis across anthropology, medicine, and sports science — recommending models from regression to random forests</li>
+            <li>Evaluated medical tool effectiveness using mixed-effects models; applied SEM to golf data and PCA to ROTC survey data</li>
+            <li>Developed R, SPSS, SAS, and Python tutorials for 50+ patrons; communicated complex methods to 80+ non-expert researchers</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-left">
+          <p class="timeline-date">2019 — 2024</p>
+          <p class="timeline-org">University of South Carolina<br>Columbia, SC</p>
+        </div>
+        <div class="timeline-right">
+          <h3 class="timeline-role">Graduate Assistant</h3>
+          <ul class="timeline-bullets">
+            <li>Designed and taught introductory Statistics courses to 70+ undergraduate students</li>
+            <li>Built a custom Excel-based grade calculator, reducing administrative workload by 20%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-left">
+          <p class="timeline-date">2017 — 2018</p>
+          <p class="timeline-org">Ewha Institute of Statistics<br>Seoul, Korea</p>
+        </div>
+        <div class="timeline-right">
+          <h3 class="timeline-role">Statistics Consultant</h3>
+          <ul class="timeline-bullets">
+            <li>Consulted with faculty across disciplines on generalized linear models, chi-squared tests, t-tests, and ANOVA in R and SPSS</li>
+            <li>Produced clear statistical reports contributing to published research in music therapy</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Research</h2>
+    </div>
+
+    <!-- Publications -->
+    <div style="margin-bottom: 1rem;" class="fade-in">
+      <p style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:2rem;">Publications &amp; Working Papers</p>
+    </div>
+
+    <!-- Paper 1 -->
+    <div class="fade-in" style="padding: 2.5rem 0; border-bottom: 1px solid var(--rule); display:grid; grid-template-columns: 80px 1fr; gap: 2.5rem; align-items:start;">
+      <div style="text-align:center; padding-top:0.2rem;">
+        <span style="display:inline-block; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; padding:0.3rem 0.6rem; border:1.5px solid var(--accent); color:var(--accent);">UNDER<br>REVIEW</span>
+      </div>
+      <div>
+        <h3 style="font-family:'DM Serif Display',serif; font-size:1.15rem; line-height:1.35; margin-bottom:0.6rem;">
+          A Unified Bayesian Approach for Regression Analysis of Group-Tested Current Status Data from Group Testing Studies
+        </h3>
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:0.5rem;">
+          <strong style="color:var(--ink);">Jihyun Kim</strong>, Lianming Wang, Christopher S. McMahan, Joshua M. Tebbs, Shuwei Li, Tao Hu
+        </p>
+        <p style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); letter-spacing:0.08em; margin-bottom:1rem;">
+          <em>Biometrics</em> · In Preparation
+        </p>
+        <p style="font-size:0.88rem; color:var(--muted); line-height:1.7; margin-bottom:1.2rem;">
+          A unified Bayesian framework for analyzing group-tested current status data from any pool testing design — 
+          including master pool, Dorfman, and array testing. Models disease onset via a semiparametric probit model with 
+          monotone splines, handles imperfect tests with unknown assay accuracies, and provides a computationally efficient 
+          Gibbs sampler. Validated on chlamydia screening data from the University of Iowa.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="tech-tag">Group Testing</span>
+          <span class="tech-tag">Semiparametric Probit</span>
+          <span class="tech-tag">Bayesian</span>
+          <span class="tech-tag">Gibbs Sampler</span>
+          <span class="tech-tag">Current Status Data</span>
+          <span class="tech-tag">Infectious Disease</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper 2 -->
+    <div class="fade-in" style="padding: 2.5rem 0; border-bottom: 1px solid var(--rule); display:grid; grid-template-columns: 80px 1fr; gap: 2.5rem; align-items:start;">
+      <div style="text-align:center; padding-top:0.2rem;">
+        <span style="display:inline-block; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; padding:0.3rem 0.6rem; border:1.5px solid var(--muted); color:var(--muted);">WORK IN<br>PROGRESS</span>
+      </div>
+      <div>
+        <h3 style="font-family:'DM Serif Display',serif; font-size:1.15rem; line-height:1.35; margin-bottom:0.6rem;">
+          Bayesian Semiparametric Current-Status Omics Model with Dirichlet Process Mixture and Slice Sampling
+        </h3>
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:0.5rem;">
+          <strong style="color:var(--ink);">Jihyun Kim</strong> et al.
+        </p>
+        <p style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); letter-spacing:0.08em; margin-bottom:1rem;">
+          In Preparation · University of Minnesota
+        </p>
+        <p style="font-size:0.88rem; color:var(--muted); line-height:1.7; margin-bottom:1.2rem;">
+          A joint Bayesian nonparametric model for current-status survival outcomes with high-dimensional omics covariates. 
+          Places a Dirichlet process mixture prior over cluster-specific survival and latent factor distributions, 
+          with spike-and-slab variable selection on omics loadings. Develops and compares three scalable 
+          posterior computation strategies: truncated DP, dependent slice sampler (Walker 2007), and 
+          independent slice sampler (Kalli et al. 2011).
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="tech-tag">Dirichlet Process</span>
+          <span class="tech-tag">Slice Sampling</span>
+          <span class="tech-tag">Omics Factor Model</span>
+          <span class="tech-tag">SSVS</span>
+          <span class="tech-tag">Survival Analysis</span>
+          <span class="tech-tag">MCMC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research Interests -->
+    <div class="fade-in" style="padding: 2.5rem 0;">
+      <p style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:1.8rem;">Research Interests</p>
+      <div style="display:grid; grid-template-columns: repeat(4,1fr); gap: 2px; background:var(--rule);">
+        <div style="background:var(--bg); padding:1.8rem;">
+          <p style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:0.6rem;">SURVIVAL ANALYSIS</p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6;">Censored data · current-status models · semiparametric methods · bivariate onset times</p>
+        </div>
+        <div style="background:var(--bg); padding:1.8rem;">
+          <p style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:0.6rem;">BAYESIAN COMPUTATION</p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6;">Dirichlet process · Gibbs sampling · slice samplers · MCMC convergence</p>
+        </div>
+        <div style="background:var(--bg); padding:1.8rem;">
+          <p style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:0.6rem;">HIGH-DIM DATA</p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6;">Omics factor models · spike-and-slab · variable selection · latent structure</p>
+        </div>
+        <div style="background:var(--bg); padding:1.8rem;">
+          <p style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:0.6rem;">APPLICATIONS</p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6;">Infectious disease · public health · group testing · epidemiology</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRESENTATIONS -->
+<section id="presentations" style="background: var(--card);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Research &amp; Presentations</h2>
+    </div>
+    <div class="pres-list">
+
+      <div class="pres-item fade-in">
+        <span class="pres-year">2024</span>
+        <div class="pres-content">
+          <p class="pres-title">Joint Analysis of Bivariate Disease Onset Times via Efficient Gibbs Sampler</p>
+          <p class="pres-venue">Oral Presentation · ENAR 2024 · Baltimore, MD</p>
+        </div>
+        <span class="pres-type">Oral</span>
+      </div>
+
+      <div class="pres-item fade-in">
+        <span class="pres-year">2023</span>
+        <div class="pres-content">
+          <p class="pres-title">Group Tested Current Status Data: Application to Chlamydia Infection</p>
+          <p class="pres-venue">Poster Presentation · ICSA 2023 · Ann Arbor, MI</p>
+        </div>
+        <span class="pres-type">Poster</span>
+      </div>
+
+      <div class="pres-item fade-in">
+        <span class="pres-year">2022</span>
+        <div class="pres-content">
+          <p class="pres-title">Semiparametric Probit Model for Arbitrarily Censored Data</p>
+          <p class="pres-venue">Oral Presentation · SC-ASA Palmetto Symposium · Columbia, SC</p>
+        </div>
+        <span class="pres-type award">🏆 Award</span>
+      </div>
+
+    </div>
+
+    <!-- Education inline here -->
+    <div style="margin-top: 5rem;">
+      <div class="section-header fade-in" style="margin-bottom: 3rem;">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="edu-grid fade-in">
+        <div class="edu-card">
+          <p class="edu-period">2019 — Present</p>
+          <h3 class="edu-degree">PhD in Statistics</h3>
+          <p class="edu-school">University of South Carolina · Columbia, SC</p>
+          <p class="edu-gpa">GPA 3.97 / 4.0</p>
+        </div>
+        <div class="edu-card">
+          <p class="edu-period">2017 — 2019</p>
+          <h3 class="edu-degree">MS in Statistics</h3>
+          <p class="edu-school">Ewha Womans University · Seoul, Korea</p>
+          <p class="edu-gpa">GPA 4.07 / 4.3</p>
+        </div>
+        <div class="edu-card">
+          <p class="edu-period">2012 — 2016</p>
+          <h3 class="edu-degree">BS in Statistics<br><span style="font-size:0.85rem; font-style:italic; color:var(--muted);">+ Psychology (Double Major)</span></h3>
+          <p class="edu-school">Ewha Womans University · Seoul, Korea</p>
+          <p class="edu-gpa">GPA 3.75 / 4.3 · Magna Cum Laude</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-heading">Get in<br><em>touch.</em></h2>
+      <p class="contact-sub">
+        Feel free to reach out for research collaborations, questions, or just to connect.
+      </p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:amyjaply787@gmail.com" class="contact-link">
+        <span class="contact-link-icon">Email</span>
+        <span class="contact-link-text">amyjaply787@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/jk1114" class="contact-link" target="_blank">
+        <span class="contact-link-icon">LinkedIn</span>
+        <span class="contact-link-text">linkedin.com/in/jk1114</span>
+      </a>
+      <a href="https://github.com/jihyun1114" class="contact-link" target="_blank">
+        <span class="contact-link-icon">GitHub</span>
+        <span class="contact-link-text">github.com/jihyun1114</span>
+      </a>
+      <a href="CV_Jihyun.pdf" class="contact-link" target="_blank">
+        <span class="contact-link-icon">CV</span>
+        <span class="contact-link-text">Download full CV (PDF)</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-note">© 2025 Jihyun Kim</span>
+  <span class="footer-note">Biostatistician · University of Minnesota</span>
+</footer>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.skill-fill').forEach(bar => {
+      bar.style.transition = 'width 1.2s ease';
+      bar.style.width = bar.dataset.width + '%';
+    });
+  });
+</script>
+</body>
+</html>
